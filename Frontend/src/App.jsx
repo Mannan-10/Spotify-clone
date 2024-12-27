@@ -1,10 +1,15 @@
 
 import React from 'react'
+import Sidebaar from './components/Sidebaar'
+import Navbar from './components/Navbar'
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-blue-600">Spotify Clone Initialize soon..</h1>
+    <div className="h-screen bg-black">
+      <h1 className="h-[90%] flex">
+        {/* <Sidebaar /> */}
+        <Navbar />
+      </h1>
     </div>
   )
 }
