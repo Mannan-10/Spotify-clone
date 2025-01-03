@@ -1,16 +1,26 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { albumData, songData } from '../assets/assests.js';
+// import { albumData, songData } from '../assets/assests.js';
 import { PlayerContext } from '../context/PlayerContext.jsx';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 
 
-function DisplayAlbum() {
+function DisplayAlbum({album}) {
     const { id } = useParams();
-    const album = albumData.find(album => album.id === id);
-    const {playWithId} = useContext(PlayerContext);
+    const [albumData,setAlbumData] = useState("");
+    const {playWithId, albumsData, SongData} = useContext(PlayerContext);
 
-    return (
+    useEffect(()=>{
+        albumsData.map((item)=>{
+            if(item._id === id){
+                setAlbumData(item);
+            }
+        })
+    })
+
+    return albumData ? (
         <>
             <div className='mt-14 flex gap-8 flex-col md:flex-row md:items-end'>
                 <img src={album.image} alt={album.name} className='w-60 h-60 rounded' />
@@ -40,7 +50,7 @@ function DisplayAlbum() {
             </div>
             <hr />
             {
-                songData.map((item,index) => (
+                songData.filter((item)=>item.album === album.name).map((item,index) => (
                     <div onClick={()=>playWithId(item.id)} className='grid grid-cols-3 sm:grid-cols-4 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff26] cursor-pointer'>
                         <p className='text-white'>
                             <b className='mr-4 text-[#a7a7a7]'>{index+1}</b>
@@ -54,7 +64,7 @@ function DisplayAlbum() {
                 ))
             }
         </>
-    );
+    ) : null
 }
 
 export default DisplayAlbum;

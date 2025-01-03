@@ -1,21 +1,26 @@
 import React from 'react';
-import { albumData } from '../assets/assests.js';
+// import { albumData } from '../assets/assests.js';
 import AlbumItem from './AlbumItem';
-import { songData } from '../assets/assests.js';
+// import { songData } from '../assets/assests.js';
 import SongItem from './SongItem.jsx';
+import { useContext } from 'react';
+import { PlayerContext } from '../context/PlayerContext.jsx';
 
 const DisplayHome = () => {
+
+  const {songData, albumsData} = useContext(PlayerContext);
+
   return (
     <>
       <div className='mb-4'>
         <h1 className='my-5 font-bold text-2xl'>Featured Charts</h1>
         <div className='flex overflow-auto'>
-          {albumData.map((item, index) => (
+          {albumsData.map((item, index) => (
             <AlbumItem
               key={index}
               name={item.name}
               desc={item.desc}
-              id={item.id}
+              id={item._id}
               image={item.image}
             />
           ))}

@@ -9,17 +9,24 @@ import LoginForm from './components/LoginForm'
 
 function App() {
 
-  const { audioRef, track } = useContext(PlayerContext);
+  const { audioRef, track, songData } = useContext(PlayerContext);
 
   return (
     <div className="h-screen bg-black">
-      <Navbar />
-      <div className='h-[95%] flex'>
-        <Sidebaar />
-        <Display />
-      </div>
-      <Player />
-      <audio ref={audioRef} src={track.file} preload='auto'></audio>
+      {
+        songData.length !== 0 ?
+          <>
+            <Navbar />
+            <div className='h-[95%] flex'>
+              <Sidebaar />
+              <Display />
+            </div>
+            <Player />
+          </>
+          : null
+      }
+
+      <audio ref={audioRef} src={track?track.file:""} preload='auto'></audio>
       <Routes>
         <Route path='/login' element={<LoginForm />} />
       </Routes>
