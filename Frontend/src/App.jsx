@@ -1,15 +1,22 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Sidebaar from './components/Sidebaar'
 import Navbar from './components/Navbar'
 import Player from './components/Player'
 import Display from './components/Display'
 import { PlayerContext } from './context/PlayerContext'
-import { Route, Router, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import LoginForm from './components/LoginForm'
 
 function App() {
 
   const { audioRef, track, songData } = useContext(PlayerContext);
+
+  useEffect(() => {
+    if (track && audioRef.current) {
+      audioRef.current.load();
+      audioRef.current.play();
+    }
+  }, [track, audioRef])
 
   return (
     <div className="h-screen bg-black">
@@ -26,7 +33,7 @@ function App() {
           : null
       }
 
-      <audio ref={audioRef} src={track?track.file:""} preload='auto'></audio>
+      <audio ref={audioRef} src={track?track.audioUrl:""} preload='auto'></audio>
       <Routes>
         <Route path='/login' element={<LoginForm />} />
       </Routes>
@@ -34,4 +41,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
