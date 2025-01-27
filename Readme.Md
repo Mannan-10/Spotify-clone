@@ -38,4 +38,4 @@ This project is a clone of the Spotify web application. It aims to replicate the
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request.
+Contributions are welcome! Please open an issue or submit a pull request..
